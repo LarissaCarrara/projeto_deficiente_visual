@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <img src="../assets/olhob.png" id="logo">
-        <p id="nomelogo">What's I see</p>
-    </header>
-    <section>
-        <div class="card">
-            <div class="div_camera">
-                <img src="../assets/lays.png" id="produto">
-                <video id="video-preview"></video>
-                <button id="capture-btn">Capturar</button>
-                <canvas id="canvas-preview"></canvas>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Produto</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <img src="../assets/olhob.png" id="logo">
+            <p id="nomelogo">What's I see</p>
+        </header>
+        <section>
+            <div class="card">
+                <div class="div_camera">
+                    <img src="" id="produto">
+                    <!-- <video id="video-preview"></video> -->
+                    <!-- <canvas id="canvas-preview"></canvas> -->
+                </div>
+                <input type="file" id="file" onchange="mostar()">
+                <button id="capture-btn">Capturar Imagem Webcam</button>
+                <input type="button" value="Buscar" id="botao_buscar"
+                    onclick="buscar()">
             </div>
-            <input type="file" id="file" onchange="mostar()">
-            <input type="button" value="Buscar" id="botao_buscar" onclick="buscar()">
-        </div>
-        <div class="div_conteudo">
-            <table border="1">
-                <tr>
-                    <th class="th">&nbsp;</th>
-                    <th class="th">&nbsp;</th>
-                    <th class="th">Probabilidade</th>
-                </tr>
-                <tbody>
-                </tbody>
-                    <tr id="trproduto">
-                        <td class="td"><u>Produto</u></td>
-                    </tr>
-                    <tr id="sabor">
-                        <td class="td"><u>Sabor</u></td>
-                    </tr>
-                    <tr id="marca">
-                        <td class="td"><u>Marca</u></td>
-                    </tr>
-                    <tr id="preco">
-                        <td class="td"><u>Preço</u></td>
-                    </tr>
-                    <tr id="descricao">
-                        <td class="td"><u>Descrição</u></td>
-                    </tr>
-                
-            </table>
-        </div>
-    </section>
-</body>
-<script src="script.js"></script>
+            <div class="div_conteudo">
+                <!-- <div id="loading"></div> -->
+                <table border="1" style="display: block;">
+                    <thead>
+                            <tr>
+                                <th class="th">&nbsp;</th>
+                                <th class="th">&nbsp;</th>
+                                <th class="th">Probabilidade</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="trproduto">
+                            <td class="td"><u>Produto</u></td>
+                        </tr>
+                        <tr id="sabor">
+                            <td class="td"><u>Sabor</u></td>
+                        </tr>
+                        <tr id="marca">
+                            <td class="td"><u>Marca</u></td>
+                        </tr>
+                        <tr id="preco">
+                            <td class="td"><u>Preço</u></td>
+                        </tr>
+                        <tr id="descricao">
+                            <td class="td"><u>Descrição</u></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </body>
+    <script src="script.js"></script>
 </html>
