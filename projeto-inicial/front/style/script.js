@@ -1,4 +1,4 @@
-   // selecione os elementos HTML
+// selecione os elementos HTML
 const video = document.querySelector("#video-preview");
 const canvas = document.querySelector("#canvas-preview");
 const captureBtn = document.querySelector("#capture-btn");
@@ -71,10 +71,10 @@ function buscar() {
   const data = new FormData();
   data.append("img", arq.files[0], arq.files[0].name);
 
-//   if (!blobTeste) {
-//     console.log("Nenhuma imagem capturada.");
-//     return;
-//   }
+  //   if (!blobTeste) {
+  //     console.log("Nenhuma imagem capturada.");
+  //     return;
+  //   }
 
   const file = new File([blobTeste], "captured_image.png");
 
@@ -124,11 +124,11 @@ function buscar() {
           if (x == 0) {
             if (element.tagName.includes("Produto")) {
               const tdproduto = document.createElement("td");
-              let frase = []
-              frase = element.tagName.split(' ');
-              frase.slice(0, 1)
-              
-              tdproduto.innerHTML = frase.join(' ');;
+              let frase = [];
+              frase = element.tagName.split(" ");
+              frase.slice(0, 1);
+
+              tdproduto.innerHTML = frase.join(" ");
               tdproduto.className = "t";
 
               const tdprob1 = document.createElement("td");
@@ -147,16 +147,15 @@ function buscar() {
           if (y == 0) {
             if (element.tagName.includes("Marca")) {
               const tdmarca = document.createElement("td");
-              let frase = []
-              frase = element.tagName.split(' ');
-              frase.slice(0, 1)
+              let frase = [];
+              frase = element.tagName.split(" ");
+              frase.slice(0, 1);
 
-              tdmarca.innerHTML = frase.join(' ');
+              tdmarca.innerHTML = frase.join(" ");
               tdmarca.classList = "t";
               const tdprob3 = document.createElement("td");
               tdprob3.innerHTML = (element.probability * 100).toFixed(3) + "%";
               tdprob3.classList = "t";
-
 
               tab_marca.appendChild(tdmarca);
               tab_marca.appendChild(tdprob3);
@@ -171,10 +170,10 @@ function buscar() {
             if (element.tagName.includes("Sabor")) {
               const tdsabor = document.createElement("td");
               const tdprob2 = document.createElement("td");
-              let frase = []
-              frase = element.tagName.split(' ');
-              frase.slice(0, 1)
-              tdsabor.innerHTML = frase.join(' ');
+              let frase = [];
+              frase = element.tagName.split(" ");
+              frase.slice(0, 1);
+              tdsabor.innerHTML = frase.join(" ");
               tdsabor.className = "t";
               tdprob2.innerHTML = (element.probability * 100).toFixed(3) + "%";
               tdprob2.classList = "t";
@@ -189,11 +188,7 @@ function buscar() {
             }
           }
         });
-        fetch("https://ia-k7lc.onrender.com/listar", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(dados),
-        })
+        fetch("https://ia-k7lc.onrender.com/listar")
           .then((resp) => {
             return resp.json();
           })
@@ -209,18 +204,20 @@ function buscar() {
               const tddescricao = document.createElement("td");
               tddescricao.innerHTML = element.descricao;
               tddescricao.classList = "t";
-            
-              if ('speechSynthesis' in window) {
+
+              if ("speechSynthesis" in window) {
                 // Cria um novo objeto SpeechSynthesisUtterance
                 var mensagem = new SpeechSynthesisUtterance();
-              
+
                 // Define o texto a ser lido em voz alta
                 mensagem.text = element.descricao;
-              
+
                 // Fala a mensagem
                 speechSynthesis.speak(mensagem);
               } else {
-                console.log('A API de síntese de fala não é suportada neste navegador.');
+                console.log(
+                  "A API de síntese de fala não é suportada neste navegador."
+                );
               }
 
               const tdvazio2 = document.createElement("td");
