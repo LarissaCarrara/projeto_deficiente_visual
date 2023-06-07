@@ -112,6 +112,7 @@ input[type="button"]:hover {
   border-radius: 10px;
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.463);
   margin-left: 20px;
+  display:  none;
 }
 
 table {
@@ -159,6 +160,7 @@ table {
 .img {
   width: 200px;
   height: 200px;
+  border-radius: 10px;
 }
 
 @media (max-width: 393px) {

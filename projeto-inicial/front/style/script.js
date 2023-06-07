@@ -1,8 +1,10 @@
-// selecione os elementos HTML
+   // selecione os elementos HTML
 const video = document.querySelector("#video-preview");
 const canvas = document.querySelector("#canvas-preview");
 const captureBtn = document.querySelector("#capture-btn");
 const table = document.querySelector("table");
+const produto = document.querySelector("#produto");
+
 // const tab_produto = document.querySelector('#trproduto');
 // const tab_sabor = document.querySelector('#sabor');
 // const tab_preco = document.querySelector('#preco');
@@ -20,7 +22,7 @@ const dados = {
 
 // defina a largura e a altura do vídeo
 const videoWidth = 200;
-const videoHeight = 200;
+const videoHeight = 150;
 
 // defina as opções da câmera
 const constraints = {
@@ -69,10 +71,10 @@ function buscar() {
   const data = new FormData();
   data.append("img", arq.files[0], arq.files[0].name);
 
-  if (!blobTeste) {
-    console.log("Nenhuma imagem capturada.");
-    return;
-  }
+//   if (!blobTeste) {
+//     console.log("Nenhuma imagem capturada.");
+//     return;
+//   }
 
   const file = new File([blobTeste], "captured_image.png");
 
@@ -120,9 +122,13 @@ function buscar() {
         resp.predictions.forEach((element, index) => {
           if (sabor && marca && produto) return;
           if (x == 0) {
-            if (element.tagName.includes("Salgadinho")) {
+            if (element.tagName.includes("Produto")) {
               const tdproduto = document.createElement("td");
-              tdproduto.innerHTML = element.tagName;
+              let frase = []
+              frase = element.tagName.split(' ');
+              frase.slice(0, 1)
+              
+              tdproduto.innerHTML = frase.join(' ');;
               tdproduto.className = "t";
 
               const tdprob1 = document.createElement("td");
@@ -139,13 +145,18 @@ function buscar() {
             }
           }
           if (y == 0) {
-            if (element.tagName.includes("Lays")) {
+            if (element.tagName.includes("Marca")) {
               const tdmarca = document.createElement("td");
-              tdmarca.innerHTML = element.tagName;
+              let frase = []
+              frase = element.tagName.split(' ');
+              frase.slice(0, 1)
+
+              tdmarca.innerHTML = frase.join(' ');
               tdmarca.classList = "t";
               const tdprob3 = document.createElement("td");
               tdprob3.innerHTML = (element.probability * 100).toFixed(3) + "%";
               tdprob3.classList = "t";
+
 
               tab_marca.appendChild(tdmarca);
               tab_marca.appendChild(tdprob3);
@@ -160,7 +171,10 @@ function buscar() {
             if (element.tagName.includes("Sabor")) {
               const tdsabor = document.createElement("td");
               const tdprob2 = document.createElement("td");
-              tdsabor.innerHTML = element.tagName;
+              let frase = []
+              frase = element.tagName.split(' ');
+              frase.slice(0, 1)
+              tdsabor.innerHTML = frase.join(' ');
               tdsabor.className = "t";
               tdprob2.innerHTML = (element.probability * 100).toFixed(3) + "%";
               tdprob2.classList = "t";
@@ -175,7 +189,7 @@ function buscar() {
             }
           }
         });
-        fetch("http://localhost:3001/listar", {
+        fetch("https://ia-k7lc.onrender.com/listar", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(dados),
@@ -195,6 +209,19 @@ function buscar() {
               const tddescricao = document.createElement("td");
               tddescricao.innerHTML = element.descricao;
               tddescricao.classList = "t";
+            
+              if ('speechSynthesis' in window) {
+                // Cria um novo objeto SpeechSynthesisUtterance
+                var mensagem = new SpeechSynthesisUtterance();
+              
+                // Define o texto a ser lido em voz alta
+                mensagem.text = element.descricao;
+              
+                // Fala a mensagem
+                speechSynthesis.speak(mensagem);
+              } else {
+                console.log('A API de síntese de fala não é suportada neste navegador.');
+              }
 
               const tdvazio2 = document.createElement("td");
               tdvazio2.innerHTML = "&nbsp;";
@@ -215,6 +242,7 @@ function mostrar() {
   const img = document.querySelector("#produto");
   const arq = document.querySelector("#file");
   if (arq.files) {
+    produto.style.display = "block";
     const file = arq.files[0];
     const reader = new FileReader();
 
@@ -226,3 +254,8 @@ function mostrar() {
     alert("INSIRA UMA IMAGEM!");
   }
 }
+
+// function apareceImagem(){
+//     produto.style.display = "block";
+
+// }

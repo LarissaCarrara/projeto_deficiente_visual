@@ -13,9 +13,10 @@ CREATE TABLE produto(
 
 insert into produto values (
     null, 
-    "salgadinho", 
-    "lays", 
+    "Salgadinho", 
+    "Lays", 
     "Sabor Cebola e Salsa",
     8.00, 
-    "salgadinho lays de cebola e salsa"
-);
+    "Salgadinho lays de cebola e salsa"
+);  
+
