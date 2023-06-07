@@ -9,7 +9,32 @@ const table = document.querySelector("table");
 // const tab_descricao = document.querySelector('#descricao');
 // const tab_marca = document.querySelector('#marca');
 const tbody = document.querySelector("tbody");
+
+// ...
+
+const img = document.createElement("img");
 const downloadLink = document.querySelector("#download-link");
+
+captureBtn.addEventListener("click", () => {
+  // desenhe o quadro atual do vídeo no elemento de canvas
+  canvas.getContext("2d").drawImage(video, 0, 0, 300, videoHeight);
+  canvas.toBlob(function (blob) {
+    // Crie um URL temporário para o Blob
+    blobTeste = blob;
+    imcSrc = URL.createObjectURL(blob);
+
+    // Atualize o link de download com o URL da imagem capturada
+    downloadLink.href = imcSrc;
+    
+  }, "image/png");
+
+  // exiba a imagem capturada em uma div
+  img.src = canvas.toDataURL("image/png");
+  img.classList = "img";
+  document.querySelector(".div_img").appendChild(img);
+});
+
+// ...
 
 const tbodyClone = tbody.cloneNode(true);
 const dados = {
@@ -44,31 +69,11 @@ navigator.mediaDevices
 let imcSrc = "";
 // adicione um evento de clique ao botão de captura
 let blobTeste = "";
-const img = document.createElement("img");
-captureBtn.addEventListener("click", () => {
-  // desenhe o quadro atual do vídeo no elemento de canvas
-  canvas.getContext("2d").drawImage(video, 0, 0, 300, videoHeight);
-  canvas.toBlob(function (blob) {
-    // Crie um URL temporário para o Blob
-    blobTeste = blob;
-    imcSrc = URL.createObjectURL(blob);
-    console.log(imcSrc);
-    downloadLink.href = imcSrc;
-    downloadLink.click();
-  }, "image/png");
-  // exiba a imagem capturada em uma div
-  img.src = canvas.toDataURL("image/png");
-  img.classList = "img";
-  document.querySelector(".div_img").appendChild(img);
-});
 
-fetch("C:/Users/Aluno/Downloads/teste.png").then((res) => console.log(res));
+const urlFetch =
+  "https://inteligenciaartificialunisal-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/683de454-c974-4889-bd6a-9aede14acba2/detect/iterations/Iteration1/image";
 
-function buscar() {
-  const arq = document.querySelector("#file");
-  const data = new FormData();
-  data.append("img", arq.files[0], arq.files[0].name);
-
+async function buscar() {
   if (!blobTeste) {
     console.log("Nenhuma imagem capturada.");
     return;
@@ -84,17 +89,33 @@ function buscar() {
       "Prediction-Key": "881942d274284a68ad90411cf81665c8",
     },
     method: "POST",
-    body: data,
+    body: formData,
   };
-  fetch(
-    "https://inteligenciaartificialunisal-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/683de454-c974-4889-bd6a-9aede14acba2/detect/iterations/Iteration1/image",
-    options
-  )
+
+  const options2 = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ url: URL.createObjectURL(blobTeste) }),
+  };
+
+  fetch("http://localhost:3001/mandarimagem", options2)
+    .then((resp) => {
+      if (resp.ok) {
+        console.log("Imagem enviada com sucesso!");
+      } else {
+        console.log("Erro ao enviar imagem.");
+      }
+    })
+    .catch((error) => {
+      console.error("Erro no fetch:", error);
+    });
+
+  fetch(urlFetch, options)
     .then((resp) => {
       if (resp.ok) {
         return resp.json();
-      } else {
-        throw new Error("Erro na solicitação");
       }
     })
     .then((resp) => {
