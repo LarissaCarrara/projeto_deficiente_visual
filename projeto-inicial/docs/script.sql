@@ -20,3 +20,13 @@ insert into produto values (
     "Salgadinho lays de cebola e salsa"
 );  
 
+insert into produto values (
+    null, 
+    "Salgadinho", 
+    "Lays", 
+    "Sabor Cebola e Salsa",
+    8.00, 
+    "Salgadinho lays de cebola e salsa"
+);  
+
+

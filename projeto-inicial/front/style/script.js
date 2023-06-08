@@ -90,7 +90,7 @@ async function buscar() {
   const tab_preco = document.querySelector("#preco");
   const tab_descricao = document.querySelector("#descricao");
   const tab_marca = document.querySelector("#marca");
-  if (resp != undefined) {
+  if (res1JSON != undefined) {
     // tbody.innerHTML = tbodyClone.innerHTML
     table.style.display = "block";
 
@@ -103,6 +103,7 @@ async function buscar() {
 
     res1JSON.predictions.forEach((element, index) => {
       if (sabor && marca && produto) return;
+      console.log(element)
       if (x == 0) {
         if (element.tagName.includes("Produto")) {
           const tdproduto = document.createElement("td");
@@ -173,7 +174,10 @@ async function buscar() {
     const res2 = await fetch("https://ia-k7lc.onrender.com/listar");
     const res2JSON = await res2.json();
     console.log(res2JSON);
-    res2JSON.forEach((element) => {
+    res2JSON.forEach((element, index) => {
+      if(index >0){
+        return
+      }
       const tdpreco = document.createElement("td");
       tdpreco.innerHTML = "R$ " + element.preco.toFixed(2);
       tdpreco.className = "t";

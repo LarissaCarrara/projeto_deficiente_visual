@@ -66,8 +66,15 @@ input::-webkit-file-upload-button {
   cursor: pointer;
   margin: 0 5rem;
   width: 50%;
+  height: 90%;
+
 }
 
+#file{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 button:hover,
 input[type="button"]:hover {
   background-color: #a8b9d475;
@@ -159,7 +166,7 @@ table {
 
 .img {
   width: 200px;
-  height: 200px;
+  height: 170px;
   border-radius: 10px;
 }
 
