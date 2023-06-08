@@ -179,7 +179,7 @@ async function buscar() {
         return
       }
       const tdpreco = document.createElement("td");
-      tdpreco.innerHTML = "R$ " + element.preco.toFixed(2);
+      tdpreco.innerHTML = "R$ " + element.preco.toFixed(2) + " reais";
       tdpreco.className = "t";
 
       const tdvazio = document.createElement("td");
@@ -195,6 +195,21 @@ async function buscar() {
 
         // Define o texto a ser lido em voz alta
         mensagem.text = element.descricao;
+
+        // Fala a mensagem
+        speechSynthesis.speak(mensagem);
+      } else {
+        console.log(
+          "A API de síntese de fala não é suportada neste navegador."
+        );
+      }
+
+      if ("speechSynthesis" in window) {
+        // Cria um novo objeto SpeechSynthesisUtterance
+        var mensagem = new SpeechSynthesisUtterance();
+
+        // Define o texto a ser lido em voz alta
+        mensagem.text = "custa " + element.preco + " reais";
 
         // Fala a mensagem
         speechSynthesis.speak(mensagem);
