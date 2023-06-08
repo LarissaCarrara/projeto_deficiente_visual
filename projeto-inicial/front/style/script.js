@@ -77,7 +77,7 @@ async function buscar() {
     body: data,
   };
   const res1 = await fetch(
-    "https://inteligenciaartificialunisal-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/683de454-c974-4889-bd6a-9aede14acba2/detect/iterations/Iteration1/image",
+    "https://inteligenciaartificialunisal-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/683de454-c974-4889-bd6a-9aede14acba2/detect/iterations/Iteration5/image",
     options
   );
   const res1JSON = await res1.json();
@@ -109,7 +109,7 @@ async function buscar() {
           const tdproduto = document.createElement("td");
           let frase = [];
           frase = element.tagName.split(" ");
-          frase.slice(0, 1);
+          frase.splice(0,1);
 
           tdproduto.innerHTML = frase.join(" ");
           tdproduto.className = "t";
@@ -132,7 +132,7 @@ async function buscar() {
           const tdmarca = document.createElement("td");
           let frase = [];
           frase = element.tagName.split(" ");
-          frase.slice(0, 1);
+          frase.splice(0,1);
 
           tdmarca.innerHTML = frase.join(" ");
           tdmarca.classList = "t";
@@ -155,7 +155,7 @@ async function buscar() {
           const tdprob2 = document.createElement("td");
           let frase = [];
           frase = element.tagName.split(" ");
-          frase.slice(0, 1);
+          frase.splice(0,1);
           tdsabor.innerHTML = frase.join(" ");
           tdsabor.className = "t";
           tdprob2.innerHTML = (element.probability * 100).toFixed(3) + "%";
