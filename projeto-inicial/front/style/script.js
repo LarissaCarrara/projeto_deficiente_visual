@@ -62,7 +62,8 @@ captureBtn.addEventListener("click", () => {
 async function buscar() {
   const arq = document.querySelector("#file");
   const data = new FormData();
-  data.append("img", arq.files[0], arq.files[0].name);
+  //, arq.files[0].name
+  data.append("img", arq.files[0]);
 
   const file = new File([blobTeste], "captured_image.png");
 
@@ -84,6 +85,7 @@ async function buscar() {
 
   // Classifica as previsões em ordem decrescente de probabilidade
   res1JSON.predictions.sort((a, b) => b.probability - a.probability);
+  console.log(res1JSON)
   tbody.innerHTML = tbodyClone.innerHTML;
   const tab_produto = document.querySelector("#trproduto");
   const tab_sabor = document.querySelector("#sabor");
