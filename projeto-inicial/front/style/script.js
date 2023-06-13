@@ -190,6 +190,7 @@ async function buscar() {
       const tddescricao = document.createElement("td");
       tddescricao.innerHTML = element.descricao;
       tddescricao.classList = "t";
+    
 
       if ("speechSynthesis" in window) {
         // Cria um novo objeto SpeechSynthesisUtterance
