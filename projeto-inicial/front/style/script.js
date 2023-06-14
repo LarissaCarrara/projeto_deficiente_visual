@@ -24,6 +24,7 @@ const constraints = {
   video: {
     width: videoWidth,
     height: videoHeight,
+    facingMode: { exact: "environment" } // Define a câmera traseira
   },
 };
 
