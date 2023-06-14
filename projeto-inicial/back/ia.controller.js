@@ -12,12 +12,10 @@ const buscar = async (req, res) => {
     marca,
     sabor,
   };
-  console.log(where);
   try {
     const produtos = await prisma.Produto.findMany({
       where,
     });
-    console.log(produtos);
     if (!produtos)
       res.status(404).json({ message: "Produto não encontrado" }).end();
     res.status(200).json(produtos).end();
