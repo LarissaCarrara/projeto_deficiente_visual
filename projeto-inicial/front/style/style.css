@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  min-width: 100vw;
+}
+
 header {
   height: 10vh;
   width: 100vw;
@@ -28,7 +32,7 @@ header {
 }
 
 section {
-  width: 100vw;
+  min-width: 100vw;
   height: 90vh;
   background-color: #7f95ba75;
   display: flex;
@@ -53,7 +57,7 @@ input {
   cursor: pointer;
   width: 100%;
   text-align: center;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -67,14 +71,14 @@ input::-webkit-file-upload-button {
   margin: 0 5rem;
   width: 50%;
   height: 90%;
-
 }
 
-#file{
-  display: flex;
+#file {
+  display: flex !important;
   align-items: center;
   justify-content: center;
 }
+
 button:hover,
 input[type="button"]:hover {
   background-color: #a8b9d475;
@@ -83,7 +87,6 @@ input[type="button"]:hover {
 #video-preview {
   width: 300px;
   border-radius: 10px;
-
 }
 
 #loading {
@@ -101,7 +104,7 @@ input[type="button"]:hover {
   justify-content: center;
   gap: 1rem;
 }
-#download-link{
+#download-link {
   display: none;
 }
 
@@ -119,7 +122,7 @@ input[type="button"]:hover {
   border-radius: 10px;
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.463);
   margin-left: 20px;
-  display:  none;
+  display: none;
 }
 
 table {
@@ -170,7 +173,7 @@ table {
   border-radius: 10px;
 }
 
-@media (max-width: 393px) {
+@media (max-width: 1100px) {
   body {
     height: auto;
     display: flex;
@@ -182,6 +185,7 @@ table {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    width: 100vw;
   }
 
   header {
@@ -195,10 +199,10 @@ table {
     font-size: 16px;
   }
 
-  #video-preview{
+  #video-preview {
     width: 80%;
   }
-  .img{
+  .img {
     width: 80%;
     height: 100px;
   }
@@ -217,7 +221,8 @@ table {
     align-items: center;
   }
   #file {
-    padding: 0;
+    padding: 0.5rem 0.5rem;
+    text-align: center;
     width: 175px;
     height: 35px;
     display: flex;
@@ -239,6 +244,7 @@ table {
   input[type="file"] {
     width: 150px;
     font-size: 12px;
+    padding: 1rem;
   }
 
   button,
@@ -248,12 +254,13 @@ table {
   }
 
   table {
-    padding-left: 10px;
-    max-width: max-content !important;
+    width: 90vw;
+    padding: 10px;
+    max-width: 90vw !important;
   }
 
   .th {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     display: flex;
     display: none;
     margin: 0;
@@ -261,22 +268,27 @@ table {
   }
 
   .td {
-    padding: 1rem;
+    padding: 0.5rem;
     display: flex;
     font-size: 13px;
     max-width: auto !important;
     margin: 0;
   }
   .t {
-    padding: 1rem;
+    padding: 0.5rem;
     max-width: auto !important;
     max-height: auto;
   }
-  #tdescricao{
-    height: 70px;
+  #tdescricao {
+    height: 87px;
   }
   .div_conteudo {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
   }
   .div_camera {
     display: flex;

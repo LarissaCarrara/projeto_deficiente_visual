@@ -24,7 +24,7 @@ const constraints = {
   video: {
     width: videoWidth,
     height: videoHeight,
-    facingMode: { exact: "environment" } // Define a câmera traseira
+    facingMode: { exact: "environment" }, // Define a câmera traseira
   },
 };
 
@@ -38,6 +38,8 @@ navigator.mediaDevices
   })
   .catch((err) => {
     console.error(err);
+    document.querySelector("#canvas-preview").style.display = "none";
+    document.querySelector("#video-preview").style.display = "none";
   });
 let imcSrc = "";
 // adicione um evento de clique ao botão de captura
@@ -82,18 +84,18 @@ async function buscar() {
     "https://inteligenciaartificialunisal-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/683de454-c974-4889-bd6a-9aede14acba2/detect/iterations/Iteration5/image",
     options
   );
-  const res1JSON = await res1.json();
+  const { predictions } = await res1.json();
 
   // Classifica as previsões em ordem decrescente de probabilidade
-  res1JSON.predictions.sort((a, b) => b.probability - a.probability);
-  console.log(res1JSON)
+  predictions.sort((a, b) => b.probability - a.probability);
+  console.log(predictions);
   tbody.innerHTML = tbodyClone.innerHTML;
   const tab_produto = document.querySelector("#trproduto");
   const tab_sabor = document.querySelector("#sabor");
   const tab_preco = document.querySelector("#preco");
   const tab_descricao = document.querySelector("#descricao");
   const tab_marca = document.querySelector("#marca");
-  if (res1JSON != undefined) {
+  if (predictions) {
     // tbody.innerHTML = tbodyClone.innerHTML
     table.style.display = "block";
 
@@ -104,15 +106,14 @@ async function buscar() {
     let marca = false;
     let produto = false;
 
-    res1JSON.predictions.forEach((element, index) => {
+    predictions.forEach((element, index) => {
       if (sabor && marca && produto) return;
-      console.log(element)
       if (x == 0) {
         if (element.tagName.includes("Produto")) {
           const tdproduto = document.createElement("td");
           let frase = [];
           frase = element.tagName.split(" ");
-          frase.splice(0,1);
+          frase.splice(0, 1);
 
           tdproduto.innerHTML = frase.join(" ");
           tdproduto.className = "t";
@@ -135,7 +136,7 @@ async function buscar() {
           const tdmarca = document.createElement("td");
           let frase = [];
           frase = element.tagName.split(" ");
-          frase.splice(0,1);
+          frase.splice(0, 1);
 
           tdmarca.innerHTML = frase.join(" ");
           tdmarca.classList = "t";
@@ -158,7 +159,7 @@ async function buscar() {
           const tdprob2 = document.createElement("td");
           let frase = [];
           frase = element.tagName.split(" ");
-          frase.splice(0,1);
+          frase.splice(0, 1);
           tdsabor.innerHTML = frase.join(" ");
           tdsabor.className = "t";
           tdprob2.innerHTML = (element.probability * 100).toFixed(3) + "%";
@@ -174,12 +175,25 @@ async function buscar() {
         }
       }
     });
-    const res2 = await fetch("https://ia-k7lc.onrender.com/listar");
+    const urlBackend = "https://ia-k7lc.onrender.com/listar";
+    const urlDev = "http://localhost:3001/buscar";
+    console.log(dados);
+    const res2 = await fetch(urlDev, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        produto: dados.produto,
+        marca: dados.marca,
+        sabor: dados.sabor,
+      }),
+    });
     const res2JSON = await res2.json();
     console.log(res2JSON);
     res2JSON.forEach((element, index) => {
-      if(index >0){
-        return
+      if (index > 0) {
+        return;
       }
       const tdpreco = document.createElement("td");
       tdpreco.innerHTML = "R$ " + element.preco.toFixed(2) + " reais";
@@ -191,31 +205,17 @@ async function buscar() {
       const tddescricao = document.createElement("td");
       tddescricao.innerHTML = element.descricao;
       tddescricao.classList = "t";
-    
 
       if ("speechSynthesis" in window) {
         // Cria um novo objeto SpeechSynthesisUtterance
-        var mensagem = new SpeechSynthesisUtterance();
+        const mensagem = new SpeechSynthesisUtterance();
 
         // Define o texto a ser lido em voz alta
         mensagem.text = element.descricao;
 
         // Fala a mensagem
         speechSynthesis.speak(mensagem);
-      } else {
-        console.log(
-          "A API de síntese de fala não é suportada neste navegador."
-        );
-      }
-
-      if ("speechSynthesis" in window) {
-        // Cria um novo objeto SpeechSynthesisUtterance
-        var mensagem = new SpeechSynthesisUtterance();
-
-        // Define o texto a ser lido em voz alta
         mensagem.text = "custa " + element.preco + " reais";
-
-        // Fala a mensagem
         speechSynthesis.speak(mensagem);
       } else {
         console.log(
@@ -250,8 +250,3 @@ function mostrar() {
     alert("INSIRA UMA IMAGEM!");
   }
 }
-
-// function apareceImagem(){
-//     produto.style.display = "block";
-
-// }
